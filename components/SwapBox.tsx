@@ -187,11 +187,20 @@ const provider = typeof window !== 'undefined' && (window as any).ethereum
               placeholder="BNB Amount"
               className="w-full border px-3 py-2 rounded"
             />
-            {bnbAmount && (
-              <p className="text-sm text-left text-red-600">
-                Fee: {parseFloat(bnbAmount) * 0.01} BNB → Net: {getMinReceived(ethers.utils.parseEther((parseFloat(bnbAmount) * 0.99).toString()), slippage).div(1e18).toFixed(4)} BNB
-              </p>
-            )}
+           {bnbAmount && (
+		  <p className="text-sm text-left text-red-600">
+			Fee: {(parseFloat(bnbAmount) * 0.01).toFixed(4)} BNB → Net: {
+			  Number(
+				ethers.utils.formatEther(
+				  getMinReceived(
+					ethers.utils.parseEther((parseFloat(bnbAmount) * 0.99).toString()),
+					slippage
+				  )
+				)
+			  ).toFixed(4)
+			} BNB
+		  </p>
+		)}
           </>
         ) : (
           <>
