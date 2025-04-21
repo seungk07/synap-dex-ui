@@ -43,9 +43,9 @@ const SwapBox = () => {
   const [mode, setMode] = useState<'bnbToToken' | 'tokenToBnb'>('bnbToToken')
   const [loading, setLoading] = useState(false)
 
-  const provider = typeof window !== 'undefined'
-    ? new ethers.providers.Web3Provider(window.ethereum as any)
-    : null
+const provider = typeof window !== 'undefined' && (window as any).ethereum
+  ? new ethers.providers.Web3Provider((window as any).ethereum)
+  : null
 
   const fetchTokenInfo = async () => {
     if (!provider || !selectedToken) return
